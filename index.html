@@ -16,26 +16,26 @@
 
     <main id="enterScores" class="hidden">
         <div class="houses">
-            <div class="house"><label>Slytherin: <input type="number" id="" value="0"></label></div>
-            <div class="house"><label>Ravenclaw: <input type="number" id="" value="0"></label></div>
-            <div class="house"><label>Gryffindor: <input type="number" id="" value="0"></label></div>
-            <div class="house"><label>Hufflepuff: <input type="number" id="" value="0"></label></div>
+            <div class="house"><label>Slytherin: <input type="number" id="" data-bind-value="slytherin"></label></div>
+            <div class="house"><label>Ravenclaw: <input type="number" id="" data-bind-value="ravenclaw"></label></div>
+            <div class="house"><label>Gryffindor: <input type="number" id="" data-bind-value="gryffindor"></label></div>
+            <div class="house"><label>Hufflepuff: <input type="number" id="" data-bind-value="hufflepuff"></label></div>
         </div>
     </main>
 
     <main id="viewScores" class="hidden">
         <div class="fancy-scores">
-            <img src="" alt="" class="gems-bar">
-            <img src="" alt="" class="gems-bar">
-            <img src="" alt="" class="gems-bar">
-            <img src="" alt="" class="gems-bar">
+            <img src="" alt="" class="gems-bar" data-bind-bar-height="slytherin">
+            <img src="" alt="" class="gems-bar" data-bind-bar-height="ravenclaw">
+            <img src="" alt="" class="gems-bar" data-bind-bar-height="gryffindor">
+            <img src="" alt="" class="gems-bar" data-bind-bar-height="hufflepuff">
 
             <img src="" alt="" class="hourglass-frame">
 
-            <div class="fancy-frame"><img src="" alt=""><span>0</span></div>
-            <div class="fancy-frame"><img src="" alt=""><span>0</span></div>
-            <div class="fancy-frame"><img src="" alt=""><span>0</span></div>
-            <div class="fancy-frame"><img src="" alt=""><span>0</span></div>
+            <div class="fancy-frame"><img src="" alt=""><span data-bind-inner-text="slytherin">0</span></div>
+            <div class="fancy-frame"><img src="" alt=""><span data-bind-inner-text="ravenclaw">0</span></div>
+            <div class="fancy-frame"><img src="" alt=""><span data-bind-inner-text="gryffindor">0</span></div>
+            <div class="fancy-frame"><img src="" alt=""><span data-bind-inner-text="hufflepuff">0</span></div>
         </div>
     </main>
 
