@@ -11,8 +11,11 @@
 </head>
 <body>
     <div class="modes js-hide-after-selecting-mode">
-        <button class="mode" onclick="selectMode('enterScores')">Enter scores</button>
-        <button class="mode" onclick="selectMode('viewScores')">View scores</button>
+        <div>
+            <button class="mode-button" onclick="selectMode('enterScores')">Enter scores</button>
+            <button class="mode-button" onclick="selectMode('viewScores')">View scores</button>
+        </div>
+        <turbo-frame id="instructions" src="instructions.html"><p>Instructions loading...</p></turbo-frame>
     </div>
 
     <main id="enterScores" class="hidden">
@@ -40,6 +43,9 @@
         </div>
     </main>
 
+    <script type="module">
+        import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';
+    </script>
     <script src="script.js"></script>
 </body>
 </html>

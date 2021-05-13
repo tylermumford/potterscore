@@ -12,15 +12,19 @@ body {
 
 /* CLASSES */
 
+.mode-button {
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
 .gem-bar {
     background-color: black;
     max-height: 500px;
     min-height: 10px;
     width: 9vw;
-
     position: fixed;
-    bottom: 23%; /* This locks the bar to the bottom of the hourglass. Hourglass height is constant. */
-
+    bottom: 23%;
+    /* This locks the bar to the bottom of the hourglass. Hourglass height is constant. */
     transition: height 0.6s ease-out;
 }
 
@@ -28,7 +32,6 @@ body {
     background-image: url('hourglass-frame.png');
     background-position: center;
     background-size: cover;
-
     position: fixed;
     top: 0;
     right: 0;
