@@ -42,8 +42,10 @@ const bindingDefinitions = [
     {
         name: 'barHeight',
         selector: '[data-bind-bar-height]',
-        updateNode: node => {
-            console.log('Todo: Implement bar height binding')
+        datasetProperty: 'bindBarHeight',
+        updateNode: (node, storedValue) => {
+            const scaleFactor = 1.2
+            node.style.height = `${storedValue * scaleFactor}px`
         }
     },
     {
