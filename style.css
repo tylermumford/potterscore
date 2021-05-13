@@ -22,10 +22,6 @@ body {
     bottom: 23%; /* This locks the bar to the bottom of the hourglass. Hourglass height is constant. */
 }
 
-.gem-bar--first {
-    opacity: 1;
-}
-
 .hourglass-frame {
     background-image: url('hourglass-frame.png');
     background-position: center;
@@ -36,9 +32,6 @@ body {
     right: 0;
     bottom: 0;
     left: 0;
-
-    /* debugging with opacity */
-    opacity: 0.6;
 }
 
 /* UTILITIES */
