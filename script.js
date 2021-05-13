@@ -132,6 +132,27 @@ function updateAllBindings() {
     console.timeEnd('updateAllBindings')
 }
 
+/**
+ * @param {string} key
+ */
+function incrementScore(key, amount) {
+    if (!amount) {
+        let promptMessage = `Add to ${key.charAt(0).toUpperCase()}${key.slice(1)}:`
+        let promptResult = prompt(promptMessage, '7')
+        if (promptResult === null) {
+            return
+        }
+        amount = Number(promptResult)
+    }
+
+    let fullKey = keyPrefix + key
+    let currentValue = Number(localStorage.getItem(fullKey))
+
+    localStorage.setItem(keyPrefix + key, currentValue + amount)
+
+    updateAllBindings()
+}
+
 /* INITIALIZATION-ONLY FUNCTIONS */
 
 /** Sets each key to 0, unless the key already has a value. */

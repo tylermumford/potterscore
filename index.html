@@ -20,10 +20,42 @@
 
     <main id="enterScores" class="hidden">
         <div class="houses">
-            <div class="house"><label>Slytherin: <input type="number" step="10" data-bind-value="slytherin"></label></div>
-            <div class="house"><label>Ravenclaw: <input type="number" step="10" data-bind-value="ravenclaw"></label></div>
-            <div class="house"><label>Gryffindor: <input type="number" step="10" data-bind-value="gryffindor"></label></div>
-            <div class="house"><label>Hufflepuff: <input type="number" step="10" data-bind-value="hufflepuff"></label></div>
+            <div class="house">
+                <label>Slytherin:
+                    <input type="number" step="10" data-bind-value="slytherin">
+                </label>
+                <button onclick="incrementScore('slytherin', 5)">+5</button>
+                <button onclick="incrementScore('slytherin', 10)">+10</button>
+                <button onclick="incrementScore('slytherin', 15)">+15</button>
+                <button onclick="incrementScore('slytherin')">+ (choose)</button>
+            </div>
+            <div class="house">
+                <label>Ravenclaw:
+                    <input type="number" step="10" data-bind-value="ravenclaw">
+                </label>
+                <button onclick="incrementScore('ravenclaw', 5)">+5</button>
+                <button onclick="incrementScore('ravenclaw', 10)">+10</button>
+                <button onclick="incrementScore('ravenclaw', 15)">+15</button>
+                <button onclick="incrementScore('ravenclaw')">+ (choose)</button>
+            </div>
+            <div class="house">
+                <label>Gryffindor:
+                    <input type="number" step="10" data-bind-value="gryffindor">
+                </label>
+                <button onclick="incrementScore('gryffindor', 5)">+5</button>
+                <button onclick="incrementScore('gryffindor', 10)">+10</button>
+                <button onclick="incrementScore('gryffindor', 15)">+15</button>
+                <button onclick="incrementScore('gryffindor')">+ (choose)</button>
+            </div>
+            <div class="house">
+                <label>Hufflepuff:
+                    <input type="number" step="10" data-bind-value="hufflepuff">
+                </label>
+                <button onclick="incrementScore('hufflepuff', 5)">+5</button>
+                <button onclick="incrementScore('hufflepuff', 10)">+10</button>
+                <button onclick="incrementScore('hufflepuff', 15)">+15</button>
+                <button onclick="incrementScore('hufflepuff')">+ (choose)</button>
+            </div>
         </div>
     </main>
 
