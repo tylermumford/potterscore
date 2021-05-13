@@ -77,7 +77,7 @@ function handleNodeValueChange(event) {
 }
 
 function handleStorageEvent(event) {
-    console.log('Storage event', event)
+    console.debug('Storage event', event)
     updateAllBindings()
 }
 
