@@ -23,17 +23,6 @@ function selectMode(modeName) {
     })
 }
 
-/** Sets each key to 0, unless the key already has a value. */
-function initializeData() {
-    keys.forEach(key => {
-        const fullKey = keyPrefix + key;
-        if (localStorage.getItem(fullKey)) {
-            return
-        }
-        localStorage.setItem(fullKey, "0")
-    })
-}
-
 /**
  * Each binding has a human-readable `name`. Periodically and as needed, the page will be searched
  * for all nodes that match `selector`. Then, `updateNode` will be called and passed each matching
@@ -81,6 +70,13 @@ function handleNodeValueChange(event) {
     let key = event.target.dataset[bindingDefinitions.find(d => d.name == 'value').datasetProperty]
     console.log(`Setting [${keyPrefix + key}] to value ${value.toString()}`)
     localStorage.setItem(keyPrefix + key, value.toString())
+
+    updateAllBindings()
+}
+
+function handleStorageEvent(event) {
+    console.log('Storage event', event)
+    updateAllBindings()
 }
 
 function updateAllBindings() {
@@ -115,6 +111,24 @@ function updateAllBindings() {
     console.timeEnd('updateAllBindings')
 }
 
-/* INITIALIZATION */
+/* INITIALIZATION-ONLY FUNCTIONS */
+
+/** Sets each key to 0, unless the key already has a value. */
+function initializeData() {
+    keys.forEach(key => {
+        const fullKey = keyPrefix + key;
+        if (localStorage.getItem(fullKey)) {
+            return
+        }
+        localStorage.setItem(fullKey, "0")
+    })
+}
+
+function initializeEvents() {
+    window.addEventListener('storage', handleStorageEvent)
+}
+
+/* INITIALIZATION CALLS */
 initializeData()
+initializeEvents()
 updateAllBindings()
