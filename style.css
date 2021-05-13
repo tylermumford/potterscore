@@ -1,7 +1,11 @@
+:root {
+    --page-bg-color: #691813;
+}
+
 /* ELEMENTS */
 
 body {
-    background-color: brown;
+    background-color: var(--page-bg-color);
     color: white;
     font-family: sans-serif;
 }
