@@ -19,6 +19,18 @@ body {
     width: 60px;
 }
 
+.hourglass-frame {
+    background-image: url('hourglass-frame.png');
+    background-position: center;
+    background-size: cover;
+
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
 /* UTILITIES */
 
 .hidden {
