@@ -7,10 +7,12 @@
     <title>Potterscore</title>
 
     <link rel="preload" href="hourglass-frame.png" as="image">
+    <link rel="preload" href="Texturina-Italic-VariableFont_opsz,wght.ttf" as="font" crossorigin>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="modes js-hide-after-selecting-mode">
+        <p class="fancy h1">Potterscore</p>
         <div>
             <button class="mode-button" onclick="selectMode('enterScores')">Enter scores</button>
             <button class="mode-button" onclick="selectMode('viewScores')">View scores</button>
@@ -19,6 +21,7 @@
     </div>
 
     <main id="enterScores" class="hidden">
+        <p class="fancy h1">Potterscore</p>
         <div class="houses">
             <div class="house">
                 <label>Slytherin:

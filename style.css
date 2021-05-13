@@ -2,6 +2,12 @@
     --page-bg-color: #691813;
 }
 
+@font-face {
+    font-family: Texturina;
+    src: url('Texturina-Italic-VariableFont_opsz\,wght.ttf');
+    fallback: Garamond, serif;
+}
+
 /* ELEMENTS */
 
 body {
@@ -50,10 +56,19 @@ body {
     font-size: 180%; /* Magic number, chosen for looking good */
 }
 
+
+.fancy {
+    font-family: Texturina, Garamond, serif;
+}
+
 /* UTILITIES */
 
 .hidden {
     display: none !important;
+}
+
+.h1 {
+    font-size: 230% !important;
 }
 
 .green {
