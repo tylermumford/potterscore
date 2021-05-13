@@ -6,6 +6,7 @@ const keys = ['slytherin', 'ravenclaw', 'gryffindor', 'hufflepuff']
 /**
  * Un-hides the element with the ID of `modeName` and hides all elements
  * marked with a hook class.
+ * @param {string} modeName
  */
 function selectMode(modeName) {
     console.log('Selecting mode ' + modeName)
@@ -59,11 +60,28 @@ const bindingDefinitions = [
     {
         name: 'value',
         selector: '[data-bind-value]',
-        updateNode: node => {
-            console.log('Todo: Implement value binding')
+        datasetProperty: 'bindValue',
+        /** @param {HTMLElement} node  */
+        updateNode: (node, storedValue) => {
+            node.value = storedValue
+
+            node.addEventListener('change', handleNodeValueChange)
         }
     }
 ]
+
+/** @param {InputEvent} event */
+function handleNodeValueChange(event) {
+    let value = Number(event.target.value)
+    if (!value && value !== 0) {
+        console.warn(`Not a valid number: ${event.target.value}`)
+        return
+    }
+
+    let key = event.target.dataset[bindingDefinitions.find(d => d.name == 'value').datasetProperty]
+    console.log(`Setting [${keyPrefix + key}] to value ${value.toString()}`)
+    localStorage.setItem(keyPrefix + key, value.toString())
+}
 
 function updateAllBindings() {
     console.time('updateAllBindings')
