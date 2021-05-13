@@ -9,9 +9,10 @@ body {
 /* CLASSES */
 
 .gem-bar {
+    background-color: black;
+    max-height: 500px;
     min-height: 10px;
     width: 60px;
-    background-color: black;
 }
 
 /* UTILITIES */
