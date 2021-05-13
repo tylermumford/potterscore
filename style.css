@@ -39,6 +39,17 @@ body {
     left: 0;
 }
 
+.fancy-frame {
+    bottom: 9%;
+    position: fixed;
+    z-index: 300;
+}
+
+.fancy-number {
+    color: darkslategray;
+    font-size: 180%; /* Magic number, chosen for looking good */
+}
+
 /* UTILITIES */
 
 .hidden {
