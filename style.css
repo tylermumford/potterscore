@@ -16,7 +16,14 @@ body {
     background-color: black;
     max-height: 500px;
     min-height: 10px;
-    width: 60px;
+    width: 9vw;
+
+    position: fixed;
+    bottom: 23%; /* This locks the bar to the bottom of the hourglass. Hourglass height is constant. */
+}
+
+.gem-bar--first {
+    opacity: 1;
 }
 
 .hourglass-frame {
@@ -29,10 +36,29 @@ body {
     right: 0;
     bottom: 0;
     left: 0;
+
+    /* debugging with opacity */
+    opacity: 0.6;
 }
 
 /* UTILITIES */
 
 .hidden {
     display: none !important;
+}
+
+.green {
+    background-color: darkgreen !important;
+}
+
+.blue {
+    background-color: darkblue !important;
+}
+
+.red {
+    background-color: maroon !important;
+}
+
+.yellow {
+    background-color: gold !important;
 }
