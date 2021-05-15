@@ -83,25 +83,6 @@ function handleStorageEvent(event) {
     updateAllBindings()
 }
 
-function handleResizeEvent() {
-    let group1 = document.querySelectorAll('.js-position-1')
-    let group2 = document.querySelectorAll('.js-position-2')
-    let group3 = document.querySelectorAll('.js-position-3')
-    let group4 = document.querySelectorAll('.js-position-4')
-    let ratio = window.innerWidth / window.innerHeight
-    // Scale factors are pretty much magic numbers that work at the intended aspect ratio of 16x9.
-    let gap = 5.8
-    let scale1 = 16
-    let scale2 = scale1 + gap
-    let scale3 = scale2 + gap
-    let scale4 = scale3 + gap
-
-    group1.forEach(node => node.style.left = `${ratio * scale1}%`)
-    group2.forEach(node => node.style.left = `${ratio * scale2}%`)
-    group3.forEach(node => node.style.left = `${ratio * scale3}%`)
-    group4.forEach(node => node.style.left = `${ratio * scale4}%`)
-}
-
 function updateAllBindings() {
     console.time('updateAllBindings')
 
@@ -170,8 +151,6 @@ function initializeData() {
 
 function initializeEvents() {
     window.addEventListener('storage', handleStorageEvent)
-    window.addEventListener('resize', handleResizeEvent, { passive: true })
-    handleResizeEvent()
 }
 
 /* INITIALIZATION CALLS */
