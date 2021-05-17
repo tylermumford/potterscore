@@ -3,6 +3,10 @@
 const keyPrefix = 'potterscore-'
 const keys = ['slytherin', 'ravenclaw', 'gryffindor', 'hufflepuff']
 
+function getScoreForKey(key) {
+    return Number(localStorage.getItem(keyPrefix + key))
+}
+
 /**
  * Un-hides the element with the ID of `modeName` and hides all elements
  * marked with a hook class.
@@ -60,6 +64,20 @@ const bindingDefinitions = [
 
             node.addEventListener('change', handleNodeValueChange)
         }
+    },
+    {
+        name: 'banners',
+        selector: '[data-bind-winning-banner]',
+        /** @param {HTMLElement} node  */
+        updateNode: node => {
+            let currentWinner = getCurrentWinningKey()
+            let boundKey = node.dataset.bindWinningBanner
+            if (currentWinner === boundKey) {
+                node.classList.remove('transparent')
+            } else {
+                node.classList.add('transparent')
+            }
+        }
     }
 ]
 
@@ -83,6 +101,24 @@ function handleStorageEvent(event) {
     updateAllBindings()
 }
 
+function getCurrentWinningKey() {
+    let currentWinner = 'hogwarts'
+    let currentHighScore = -1
+
+    keys.forEach(key => {
+        let score = getScoreForKey(key)
+        if (score > currentHighScore) {
+            currentWinner = key
+            currentHighScore = score
+        } else if (score === currentHighScore) {
+            currentWinner = 'hogwarts'
+        }
+    })
+
+    console.log('current winner:', currentWinner);
+    return currentWinner
+}
+
 function updateAllBindings() {
     console.time('updateAllBindings')
 
@@ -103,7 +139,7 @@ function updateAllBindings() {
                 throw `dataset.${binding.datasetProperty} provided no value (no key)`
             }
 
-            let storedValue = localStorage.getItem(keyPrefix + providedKey)
+            let storedValue = getScoreForKey(providedKey)
             if (!storedValue) {
                 throw `dataset.${binding.datasetProperty}="${providedKey}" did not match a localStorage key`
             }
@@ -128,8 +164,7 @@ function incrementScore(key, amount) {
         amount = Number(promptResult)
     }
 
-    let fullKey = keyPrefix + key
-    let currentValue = Number(localStorage.getItem(fullKey))
+    let currentValue = getScoreForKey(key)
 
     localStorage.setItem(keyPrefix + key, currentValue + amount)
 

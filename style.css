@@ -74,17 +74,20 @@ body {
 
 .banners-fitted {
     /* This class creates a box around the left and right banners. */
+    --width: calc(100vh / 0.575);
+
     height: 45vh;
-    margin-left: auto;
-    margin-right: auto;
+    left: 50%;
+    margin-left: calc(0vh - var(--width) / 2);
+    position: absolute;
     top: 14.3%;
-    width: calc(100vh / 0.575);
-    /* Create a positioning context */
-    position: relative;
+    width: var(--width);
 }
 
 .banner {
     width: 100%;
+    position: absolute;
+    transition: opacity 0.8s ease-in;
 }
 
 .score-frame {
@@ -118,6 +121,10 @@ body {
 
 .hidden {
     display: none !important;
+}
+
+.transparent {
+    opacity: 0 !important;
 }
 
 .h1 {
