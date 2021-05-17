@@ -37,10 +37,7 @@ body {
 }
 
 .gem-bar {
-    background-color: black;
-    max-height: 500px;
-    min-height: 10px;
-    transition: height 0.6s ease-out;
+    transition: transform 0.6s ease-out;
     width: 18%;
 }
 
@@ -110,20 +107,4 @@ body {
 
 .h1 {
     font-size: 230% !important;
-}
-
-.green {
-    background-color: darkgreen !important;
-}
-
-.blue {
-    background-color: darkblue !important;
-}
-
-.red {
-    background-color: maroon !important;
-}
-
-.yellow {
-    background-color: gold !important;
 }

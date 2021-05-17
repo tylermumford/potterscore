@@ -44,10 +44,10 @@ const bindingDefinitions = [
         selector: '[data-bind-bar-height]',
         datasetProperty: 'bindBarHeight',
         updateNode: (node, storedValue) => {
-            // scaleFactor relates to max expected score (350) and the height of the hourglasses on screen,
-            // but it's still a magic number.
-            const scaleFactor = 1 / 6.6
-            node.style.height = `${storedValue * scaleFactor}%`
+            let percentageFull = storedValue / 350 * 100
+            let boundedPercentageFull = Math.min(Math.max(0, percentageFull), 100)
+
+            node.style.transform = `translateY(${100 - boundedPercentageFull}%)`
         }
     },
     {
