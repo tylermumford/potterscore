@@ -91,26 +91,32 @@ body {
 }
 
 .score-frame {
+    align-items: center;
     box-sizing: border-box;
     display: flex;
     justify-content: space-around;
     width: 100%;
+
     /* These properties are for lining up the frame on the image. */
     bottom: 5.8%;
-    padding-right: 9%;
+
     /* lines up numbers below asymmetrical hourglasses */
-    padding-top: 1.1%;
+    padding-right: 9%;
+
     /* accounts for font */
+    padding-top: 1.1%;
+
     position: absolute;
-    top: 84%;
+    top: 81%;
     z-index: 300;
 }
 
 .fancy-number {
     color: darkslategray;
-    font-size: 180%;
-    /* Magic number, chosen for looking good */
+    font-size: 6vh;
     line-height: 1;
+    min-width: 3ch;
+    text-align: center;
 }
 
 .fancy {

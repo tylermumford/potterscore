@@ -140,7 +140,7 @@ function updateAllBindings() {
             }
 
             let storedValue = getScoreForKey(providedKey)
-            if (!storedValue) {
+            if (!storedValue && storedValue !== 0) {
                 throw `dataset.${binding.datasetProperty}="${providedKey}" did not match a localStorage key`
             }
 
