@@ -23,6 +23,19 @@ body {
     border-radius: 1rem;
 }
 
+.houses {
+    font-size: 130%;
+}
+
+.houses input, .houses button {
+    font-size: inherit;
+}
+
+.entry-label {
+    display: inline-block;
+    min-width: 20ch;
+}
+
 .gem-bars {
     align-items: flex-end;
     box-sizing: border-box;
