@@ -72,6 +72,21 @@ body {
     position: relative;
 }
 
+.banners-fitted {
+    /* This class creates a box around the left and right banners. */
+    height: 45vh;
+    margin-left: auto;
+    margin-right: auto;
+    top: 14.3%;
+    width: calc(100vh / 0.575);
+    /* Create a positioning context */
+    position: relative;
+}
+
+.banner {
+    width: 100%;
+}
+
 .score-frame {
     box-sizing: border-box;
     display: flex;
