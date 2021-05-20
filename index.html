@@ -8,9 +8,13 @@
 
     <link rel="preload" href="hourglass-frame.png" as="image">
     <link rel="preload" href="Texturina-Italic-VariableFont_opsz,wght.ttf" as="font" type="application/font-sfnt" crossorigin>
+    <link rel="preload" href="gsap-core.js" as="script" crossorigin>
+    <link rel="preload" href="gsap-css-plugin.js" as="script" crossorigin>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <golden-snitch class="snitch"></golden-snitch>
+
     <div class="modes js-hide-after-selecting-mode">
         <p class="fancy h1">Potterscore</p>
         <div>
@@ -98,5 +102,6 @@
         import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';
     </script>
     <script src="script.js"></script>
+    <script src="golden-snitch.js" type="module"></script>
 </body>
 </html>

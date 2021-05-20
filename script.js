@@ -115,7 +115,7 @@ function getCurrentWinningKey() {
         }
     })
 
-    console.log('current winner:', currentWinner);
+    console.log('current winner:', currentWinner)
     return currentWinner
 }
 
@@ -176,7 +176,7 @@ function incrementScore(key, amount) {
 /** Sets each key to 0, unless the key already has a value. */
 function initializeData() {
     keys.forEach(key => {
-        const fullKey = keyPrefix + key;
+        const fullKey = keyPrefix + key
         if (localStorage.getItem(fullKey)) {
             return
         }
