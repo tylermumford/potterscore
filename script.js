@@ -15,11 +15,11 @@ function getScoreForKey(key) {
 function selectMode(modeName) {
     console.log('Selecting mode ' + modeName)
 
-    let target = document.querySelector('#' + modeName)
-    if (!target) {
-        throw 'selectMode: target element not found'
+    let targets = document.querySelectorAll('.js-mode-' + modeName)
+    if (!targets || targets.length === 0) {
+        throw 'selectMode: target elements not found'
     }
-    target.classList.remove('hidden')
+    targets.forEach(t => t.classList.remove('hidden'))
 
     let toHide = document.querySelectorAll('.js-hide-after-selecting-mode')
     toHide.forEach(node => {

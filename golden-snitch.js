@@ -3,9 +3,17 @@ import * as CssPlugin from './gsap-css-plugin.js'
 
 gsap.registerPlugin(CssPlugin)
 
+/**
+ * A golden snitch will fly around the screen at certain
+ * intervals. It won't appear immediately, and it won't
+ * stick around for long. */
 class GoldenSnitch extends HTMLElement {
     /** @property {ShadowRoot} root */
     root
+
+    isAnimated = false
+
+    static get observedAttributes() { return ['class'] }
 
     constructor() {
         super()
@@ -17,10 +25,23 @@ class GoldenSnitch extends HTMLElement {
         style.textContent = styleContent
         this.root.append(style)
 
+        this.maybeBeginAnimation()
+    }
+
+    attributeChangedCallback() {
+        this.maybeBeginAnimation()
+    }
+
+    maybeBeginAnimation() {
+        if (this.isAnimated || this.classList.contains('hidden')) {
+            return
+        }
         this.beginAnimation()
     }
 
     beginAnimation() {
+        console.log('Animating the snitch')
+
         const snitchInitialDelay = 2 * 60 // 2 minutes
         const snitchVisibleDuration = 5 // 5 seconds
         const snitchReappearInterval = 3 * 60 // 3 minutes
@@ -90,6 +111,8 @@ class GoldenSnitch extends HTMLElement {
         fly()
         moveSnitchRandomly()
         appearAndDisappear()
+
+        this.isAnimated = true
     }
 }
 
