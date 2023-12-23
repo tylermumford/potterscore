@@ -30,7 +30,6 @@ let opts = {
   pointsX: 20,
   pointsY: 22,
   renderCloth: true,
-  mouseInfluence: 35,
   pinCorners: true,
 };
 
@@ -40,7 +39,6 @@ let gui = new dat.GUI();
 gui.closed = true;
 let renderCloth = gui.add(opts, 'renderCloth');
 
-let influence = gui.add(opts, 'mouseInfluence', 0, 200).step(1);
 let gravity = gui.add(opts, 'gravity', 0, 1000).step(20);
 let friction = gui.add(opts, 'friction', 0.5, 1).step(0.005);
 let bounce = gui.add(opts, 'bounce', 0, 2).step(0.1);
@@ -54,14 +52,6 @@ let ctx = canvas.getContext('2d');
 document.body.appendChild(canvas);
 
 ctx.strokeStyle = '#555';
-
-let mouse = {
-  down: false,
-  x: 0,
-  y: 0,
-  px: 0,
-  py: 1
-}
 
 /*////////////////////////////////////////*/
 
@@ -135,19 +125,6 @@ class Point {
 
   update (delta) {
     if (this.pinX && this.pinY) return this
-
-    if (mouse.down) {
-      let dx = this.x - mouse.x
-      let dy = this.y - mouse.y
-      let dist = Math.sqrt(dx * dx + dy * dy)
-
-      if (mouse.button === 1 && dist < opts.mouseInfluence) {
-        this.px = this.x - (mouse.x - mouse.px)
-        this.py = this.y - (mouse.y - mouse.py)
-      } else if (dist < mouse.cut) {
-        this.constraints = []
-      }
-    }
 
     this.addForce(0, opts.gravity)
 
