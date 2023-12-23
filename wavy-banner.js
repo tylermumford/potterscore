@@ -28,6 +28,7 @@ class WavyBanner extends HTMLElement {
     };
 
     this.createElements()
+    this.loadTexture()
   }
 
   get src() { return this.attributes.src.value }
@@ -48,6 +49,32 @@ class WavyBanner extends HTMLElement {
 
     this.canvas.width = this.renderer.width;
     this.canvas.height = this.renderer.height;
+  }
+
+  loadTexture() {
+    console.log('loading texture', this.opts.image);
+  
+    let texture = new PIXI.Texture.fromImage(this.opts.image);
+    if (!texture.requiresUpdate) { texture.update(); }
+  
+    texture.on('error', function () { console.error('AGH!'); });
+  
+    texture.on('update', () => {
+      console.log('texture loaded in class');
+  
+      if (this.mesh) { this.stage.removeChild(this.mesh); }
+  
+      this.mesh = new PIXI.mesh.Plane(texture, this.opts.pointsX, this.opts.pointsY);
+      this.mesh.width = this.width;
+      this.mesh.height = this.height;
+  
+      this.spacingX = this.mesh.width / (this.opts.pointsX - 1);
+      this.spacingY = this.mesh.height / (this.opts.pointsY - 1);
+  
+      this.cloth = new Cloth(this.opts.pointsX - 1, this.opts.pointsY - 1, !this.opts.pinCorners);
+  
+      this.stage.addChild(this.mesh);
+    });
   }
 }
 
