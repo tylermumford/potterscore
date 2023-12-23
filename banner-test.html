@@ -12,18 +12,6 @@
       z-index: -2;
     }
 
-    .desc {
-      position: absolute;
-      z-index: 10;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      padding: 1em;
-      font-size: 10px;
-      color: #aaa;
-      text-align: center;
-    }
-
     .loading:before {
       position: absolute;
       top: 0;
@@ -33,11 +21,18 @@
       color: #aaa;
       font-family: monospace;
     }
+
+    wavy-banner {
+      display: block;
+      width: 300px;
+      height: 500px;
+      outline: solid 1px lime;
+    }
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.1/dat.gui.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.4.2/pixi.min.js"></script>
   <script type="module" src="wavy-banner.js"></script>
 
   <wavy-banner src="banner-single-ravenclaw.png"></wavy-banner>
-  <wavy-banner src="banner-single-ravenclaw.png"></wavy-banner>
+  <wavy-banner src="banner-single-ravenclaw.png" style="filter:grayscale(1)"></wavy-banner>
 </body>

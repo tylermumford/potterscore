@@ -5,7 +5,16 @@
 
 // Modified by tylermumford
 
-console.clear();
+class WavyBanner extends HTMLElement {
+  constructor() {
+    super()
+    console.log("I'm a wavy banner using " + this.src, this)
+  }
+
+  get src() { return this.attributes.src.value }
+}
+
+customElements.define('wavy-banner', WavyBanner)
 
 let mesh;
 let cloth;
@@ -23,26 +32,14 @@ let opts = {
   renderCloth: true,
   mouseInfluence: 35,
   pinCorners: true,
-  randomImage(){
-    this.image = 'https://unsplash.it/400/400?image=' + Math.floor(Math.random() * 1100);
-    loadTexture();
-  }
 };
 
 
 let gui = new dat.GUI();
-gui.closed = window.innerWidth < 600;
+// gui.closed = window.innerWidth < 600;
+gui.closed = true;
 let renderCloth = gui.add(opts, 'renderCloth');
 
-let image = gui.add(opts, 'image', { 
-  Face: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/39255/face.png', 
-  Water: 'https://unsplash.it/400/400?image=1053', 
-  YellowCurtain: 'https://unsplash.it/400/400?image=855', 
-  Tunnel: 'https://unsplash.it/400/400?image=137'
-});
-image.onChange(loadTexture);
-
-let random = gui.add(opts, 'randomImage');
 let influence = gui.add(opts, 'mouseInfluence', 0, 200).step(1);
 let gravity = gui.add(opts, 'gravity', 0, 1000).step(20);
 let friction = gui.add(opts, 'friction', 0.5, 1).step(0.005);
@@ -59,7 +56,6 @@ document.body.appendChild(canvas);
 ctx.strokeStyle = '#555';
 
 let mouse = {
-  
   down: false,
   x: 0,
   y: 0,
