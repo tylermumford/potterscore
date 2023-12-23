@@ -72,9 +72,6 @@ class WavyBanner extends HTMLElement {
       this.spacingX = this.mesh.width / (this.opts.pointsX - 1);
       this.spacingY = this.mesh.height / (this.opts.pointsY - 1);
   
-      console.log('about to make a Cloth with', {
-        spacingX: this.spacingX,
-      })
       this.cloth = new Cloth(this.opts.pointsX - 1, this.opts.pointsY - 1, !this.opts.pinCorners, {
         canvas: this.canvas,
         spacingX: this.spacingX,
@@ -294,7 +291,6 @@ class Constraint {
   constructor(p1, p2, length, { ctx, spacingX }) {
     this.p1 = p1
     this.p2 = p2
-    console.log('constructing a Constraint with', { spacingX })
     this.length = length || spacingX
 
     this.ctx = ctx
@@ -347,7 +343,6 @@ class Cloth {
 
     for (let y = 0; y <= clothY; y++) {
       for (let x = 0; x <= clothX; x++) {
-        console.log('about to make a Point with', { spacingX })
         let point = new Point(
           startX + x * spacingX - (spacingX * Math.sin(y)),
           y * spacingY + startY + (y !== 0 ? 5 * Math.cos(x) : 0),
