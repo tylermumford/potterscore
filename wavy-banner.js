@@ -29,6 +29,7 @@ class WavyBanner extends HTMLElement {
 
     this.createElements()
     this.loadTexture()
+    this.update()
   }
 
   get src() { return this.attributes.src.value }
@@ -71,31 +72,52 @@ class WavyBanner extends HTMLElement {
       this.spacingX = this.mesh.width / (this.opts.pointsX - 1);
       this.spacingY = this.mesh.height / (this.opts.pointsY - 1);
   
-      this.cloth = new Cloth(this.opts.pointsX - 1, this.opts.pointsY - 1, !this.opts.pinCorners);
+      console.log('about to make a Cloth with', {
+        spacingX: this.spacingX,
+      })
+      this.cloth = new Cloth(this.opts.pointsX - 1, this.opts.pointsY - 1, !this.opts.pinCorners, {
+        canvas: this.canvas,
+        spacingX: this.spacingX,
+        spacingY: this.spacingY,
+        accuracy: this.accuracy,
+        ctx: this.ctx,
+        opts: this.opts,
+        mesh: this.mesh,
+      });
   
       this.stage.addChild(this.mesh);
     });
+  }
+
+  update() {
+    requestAnimationFrame(() => this.update());
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    if (this.cloth) { this.cloth.update(0.016) }
+    this.renderer.render(this.stage);
   }
 }
 
 customElements.define('wavy-banner', WavyBanner)
 
-let mesh;
-let cloth;
-let spacingX = 5;
-let spacingY = 5;
-let accuracy = 1;
+// All this dead code should be removed
+// when wavy-banner is fully self-contained
 
-let opts = {
-  image: 'http://localhost:8080/banner-single-ravenclaw.png',
-  gravity: 200,
-  friction: 0.99,
-  bounce: 0.3,
-  pointsX: 20,
-  pointsY: 22,
-  renderCloth: true,
-  pinCorners: true,
-};
+// let mesh;
+// let cloth;
+// let spacingX = 5;
+// let spacingY = 5;
+// let accuracy = 1;
+
+// let opts = {
+//   image: 'http://localhost:8080/banner-single-ravenclaw.png',
+//   gravity: 200,
+//   friction: 0.99,
+//   bounce: 0.3,
+//   pointsX: 20,
+//   pointsY: 22,
+//   renderCloth: true,
+//   pinCorners: true,
+// };
 
 
 // let gui = new dat.GUI();
@@ -111,70 +133,70 @@ let opts = {
 // let pin = gui.add(opts, 'pinCorners');
 // pin.onChange(loadTexture);
 
-let canvas = document.createElement('canvas');
-let ctx = canvas.getContext('2d');
-document.body.appendChild(canvas);
+// let canvas = document.createElement('canvas');
+// let ctx = canvas.getContext('2d');
+// document.body.appendChild(canvas);
 
-ctx.strokeStyle = '#555';
-
-/*////////////////////////////////////////*/
-
-let stage = new PIXI.Container();
-let renderer = PIXI.autoDetectRenderer(window.innerWidth, window.innerHeight, { transparent: true });
-
-document.body.insertBefore(renderer.view, canvas);
-renderer.render(stage);
-
-canvas.width = renderer.width;
-canvas.height = renderer.height;
-
+// ctx.strokeStyle = '#555';
 
 /*////////////////////////////////////////*/
 
-function loadTexture() {
+// let stage = new PIXI.Container();
+// let renderer = PIXI.autoDetectRenderer(window.innerWidth, window.innerHeight, { transparent: true });
 
-  console.log('loading texture', opts.image);
+// document.body.insertBefore(renderer.view, canvas);
+// renderer.render(stage);
 
-  document.body.className = 'loading';
+// canvas.width = renderer.width;
+// canvas.height = renderer.height;
 
-  let texture = new PIXI.Texture.fromImage(opts.image);
-  if (!texture.requiresUpdate) { texture.update(); }
 
-  texture.on('error', function () { console.error('AGH!'); });
+/*////////////////////////////////////////*/
 
-  texture.on('update', function () {
-    document.body.className = '';
+// function loadTexture() {
 
-    console.log('texture loaded');
+//   console.log('loading texture', opts.image);
 
-    if (mesh) { stage.removeChild(mesh); }
+//   document.body.className = 'loading';
 
-    mesh = new PIXI.mesh.Plane(this, opts.pointsX, opts.pointsY);
-    mesh.width = this.width;
-    mesh.height = this.height;
+//   let texture = new PIXI.Texture.fromImage(opts.image);
+//   if (!texture.requiresUpdate) { texture.update(); }
 
-    spacingX = mesh.width / (opts.pointsX - 1);
-    spacingY = mesh.height / (opts.pointsY - 1);
+//   texture.on('error', function () { console.error('AGH!'); });
 
-    cloth = new Cloth(opts.pointsX - 1, opts.pointsY - 1, !opts.pinCorners);
+//   texture.on('update', function () {
+//     document.body.className = '';
 
-    stage.addChild(mesh);
-  });
-}
+//     console.log('texture loaded');
 
-loadTexture(opts.image);
+//     if (mesh) { stage.removeChild(mesh); }
 
-; (function update() {
-  requestAnimationFrame(update);
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  if (cloth) { cloth.update(0.016) }
-  renderer.render(stage);
-})(0)
+//     mesh = new PIXI.mesh.Plane(this, opts.pointsX, opts.pointsY);
+//     mesh.width = this.width;
+//     mesh.height = this.height;
+
+//     spacingX = mesh.width / (opts.pointsX - 1);
+//     spacingY = mesh.height / (opts.pointsY - 1);
+
+//     cloth = new Cloth(opts.pointsX - 1, opts.pointsY - 1, !opts.pinCorners);
+
+//     stage.addChild(mesh);
+//   });
+// }
+
+// loadTexture(opts.image);
+
+// ; (function update() {
+//   requestAnimationFrame(update);
+//   ctx.clearRect(0, 0, canvas.width, canvas.height);
+//   if (cloth) { cloth.update(0.016) }
+//   renderer.render(stage);
+// })(0)
 
 /*////////////////////////////////////////*/
 
 class Point {
-  constructor(x, y) {
+  constructor(x, y, { canvas, ctx, spacingX, opts }) {
     this.x = x
     this.y = y
     this.px = x
@@ -185,15 +207,20 @@ class Point {
     this.pinY = null
 
     this.constraints = []
+
+    this.canvas = canvas
+    this.ctx = ctx
+    this.spacingX = spacingX
+    this.opts = opts
   }
 
   update(delta) {
     if (this.pinX && this.pinY) return this
 
-    this.addForce(0, opts.gravity)
+    this.addForce(0, this.opts.gravity)
 
-    let nx = this.x + (this.x - this.px) * opts.friction + this.vx * delta
-    let ny = this.y + (this.y - this.py) * opts.friction + this.vy * delta
+    let nx = this.x + (this.x - this.px) * this.opts.friction + this.vx * delta
+    let ny = this.y + (this.y - this.py) * this.opts.friction + this.vy * delta
 
     this.px = this.x
     this.py = this.y
@@ -203,19 +230,19 @@ class Point {
 
     this.vy = this.vx = 0
 
-    if (this.x >= canvas.width) {
-      this.px = canvas.width + (canvas.width - this.px) * opts.bounce
-      this.x = canvas.width
+    if (this.x >= this.canvas.width) {
+      this.px = this.canvas.width + (this.canvas.width - this.px) * this.opts.bounce
+      this.x = this.canvas.width
     } else if (this.x <= 0) {
-      this.px *= -1 * opts.bounce
+      this.px *= -1 * this.opts.bounce
       this.x = 0
     }
 
-    if (this.y >= canvas.height) {
-      this.py = canvas.height + (canvas.height - this.py) * opts.bounce
-      this.y = canvas.height
+    if (this.y >= this.canvas.height) {
+      this.py = this.canvas.height + (this.canvas.height - this.py) * this.opts.bounce
+      this.y = this.canvas.height
     } else if (this.y <= 0) {
-      this.py *= -1 * opts.bounce
+      this.py *= -1 * this.opts.bounce
       this.y = 0
     }
 
@@ -238,7 +265,7 @@ class Point {
   }
 
   attach(point) {
-    this.constraints.push(new Constraint(this, point))
+    this.constraints.push(new Constraint(this, point, undefined, { ctx: this.ctx, spacingX: this.spacingX }))
   }
 
   free(constraint) {
@@ -264,10 +291,13 @@ class Point {
 /*////////////////////////////////////////*/
 
 class Constraint {
-  constructor(p1, p2, length) {
+  constructor(p1, p2, length, { ctx, spacingX }) {
     this.p1 = p1
     this.p2 = p2
+    console.log('constructing a Constraint with', { spacingX })
     this.length = length || spacingX
+
+    this.ctx = ctx
   }
 
   resolve() {
@@ -295,8 +325,8 @@ class Constraint {
   }
 
   draw() {
-    ctx.moveTo(this.p1.x, this.p1.y)
-    ctx.lineTo(this.p2.x, this.p2.y)
+    this.ctx.moveTo(this.p1.x, this.p1.y)
+    this.ctx.lineTo(this.p2.x, this.p2.y)
   }
 }
 
@@ -305,17 +335,23 @@ class Constraint {
 let count = 0;
 
 class Cloth {
-  constructor(clothX, clothY, free) {
+  constructor(clothX, clothY, free, { canvas, spacingX, spacingY, accuracy, ctx, opts, mesh }) {
     this.points = []
+    this.accuracy = accuracy;
+    this.ctx = ctx;
+    this.opts = opts;
+    this.mesh = mesh;
 
     let startX = canvas.width / 2 - clothX * spacingX / 2;
     let startY = canvas.height * 0.2;
 
     for (let y = 0; y <= clothY; y++) {
       for (let x = 0; x <= clothX; x++) {
+        console.log('about to make a Point with', { spacingX })
         let point = new Point(
           startX + x * spacingX - (spacingX * Math.sin(y)),
-          y * spacingY + startY + (y !== 0 ? 5 * Math.cos(x) : 0)
+          y * spacingY + startY + (y !== 0 ? 5 * Math.cos(x) : 0),
+          { canvas, ctx, spacingX, opts }
         )
         !free && y === 0 && point.pin(point.x, point.y)
         x !== 0 && point.attach(this.points[this.points.length - 1])
@@ -328,7 +364,7 @@ class Cloth {
   }
 
   update(delta) {
-    let i = accuracy
+    let i = this.accuracy
 
     while (i--) {
       this.points.forEach((point) => {
@@ -336,20 +372,20 @@ class Cloth {
       })
     }
 
-    ctx.beginPath();
+    this.ctx.beginPath();
 
     this.points.forEach((point, i) => {
       point.update(delta * delta)
 
-      if (opts.renderCloth) { point.draw(); }
+      if (this.opts.renderCloth) { point.draw(); }
 
-      if (mesh) {
+      if (this.mesh) {
         i *= 2;
-        mesh.vertices[i] = point.x;
-        mesh.vertices[i + 1] = point.y;
+        this.mesh.vertices[i] = point.x;
+        this.mesh.vertices[i + 1] = point.y;
       }
     });
 
-    ctx.stroke()
+    this.ctx.stroke()
   }
 }
