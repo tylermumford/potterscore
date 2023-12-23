@@ -9,9 +9,46 @@ class WavyBanner extends HTMLElement {
   constructor() {
     super()
     console.log("I'm a wavy banner using " + this.src, this)
+
+    this.mesh = undefined;
+    this.cloth = undefined;
+    this.spacingX = 5;
+    this.spacingY = 5;
+    this.accuracy = 1;
+
+    this.opts = {
+      image: 'http://localhost:8080/banner-single-ravenclaw.png',
+      gravity: 200,
+      friction: 0.99,
+      bounce: 0.3,
+      pointsX: 20,
+      pointsY: 22,
+      renderCloth: true,
+      pinCorners: true,
+    };
+
+    this.createElements()
   }
 
   get src() { return this.attributes.src.value }
+  get width() { return this.attributes.width.value }
+  get height() { return this.attributes.height.value }
+
+  createElements(params) {
+    this.canvas = document.createElement('canvas')
+    this.ctx = this.canvas.getContext('2d')
+    this.appendChild(this.canvas)
+    this.ctx.strokeStyle = '#555'
+
+    this.stage = new PIXI.Container();
+    this.renderer = PIXI.autoDetectRenderer(this.width, this.height, { transparent: true });
+
+    this.insertBefore(this.renderer.view, this.canvas);
+    this.renderer.render(this.stage);
+
+    this.canvas.width = this.renderer.width;
+    this.canvas.height = this.renderer.height;
+  }
 }
 
 customElements.define('wavy-banner', WavyBanner)
@@ -34,18 +71,18 @@ let opts = {
 };
 
 
-let gui = new dat.GUI();
-// gui.closed = window.innerWidth < 600;
-gui.closed = true;
-let renderCloth = gui.add(opts, 'renderCloth');
+// let gui = new dat.GUI();
+// // gui.closed = window.innerWidth < 600;
+// gui.closed = true;
+// let renderCloth = gui.add(opts, 'renderCloth');
 
-let gravity = gui.add(opts, 'gravity', 0, 1000).step(20);
-let friction = gui.add(opts, 'friction', 0.5, 1).step(0.005);
-let bounce = gui.add(opts, 'bounce', 0, 2).step(0.1);
+// let gravity = gui.add(opts, 'gravity', 0, 1000).step(20);
+// let friction = gui.add(opts, 'friction', 0.5, 1).step(0.005);
+// let bounce = gui.add(opts, 'bounce', 0, 2).step(0.1);
 
 
-let pin = gui.add(opts, 'pinCorners');
-pin.onChange(loadTexture);
+// let pin = gui.add(opts, 'pinCorners');
+// pin.onChange(loadTexture);
 
 let canvas = document.createElement('canvas');
 let ctx = canvas.getContext('2d');
@@ -68,31 +105,31 @@ canvas.height = renderer.height;
 /*////////////////////////////////////////*/
 
 function loadTexture() {
-  
+
   console.log('loading texture', opts.image);
-  
+
   document.body.className = 'loading';
 
   let texture = new PIXI.Texture.fromImage(opts.image);
-  if ( !texture.requiresUpdate ) { texture.update(); }
-  
-  texture.on('error', function(){ console.error('AGH!'); });
+  if (!texture.requiresUpdate) { texture.update(); }
 
-  texture.on('update',function(){
-  document.body.className = '';
-    
+  texture.on('error', function () { console.error('AGH!'); });
+
+  texture.on('update', function () {
+    document.body.className = '';
+
     console.log('texture loaded');
 
-    if ( mesh ) { stage.removeChild(mesh); }
-    
-    mesh = new PIXI.mesh.Plane( this, opts.pointsX, opts.pointsY);
+    if (mesh) { stage.removeChild(mesh); }
+
+    mesh = new PIXI.mesh.Plane(this, opts.pointsX, opts.pointsY);
     mesh.width = this.width;
     mesh.height = this.height;
 
-    spacingX = mesh.width / (opts.pointsX-1);
-    spacingY = mesh.height / (opts.pointsY-1);
+    spacingX = mesh.width / (opts.pointsX - 1);
+    spacingY = mesh.height / (opts.pointsY - 1);
 
-    cloth = new Cloth(opts.pointsX-1, opts.pointsY-1, !opts.pinCorners);
+    cloth = new Cloth(opts.pointsX - 1, opts.pointsY - 1, !opts.pinCorners);
 
     stage.addChild(mesh);
   });
@@ -100,17 +137,17 @@ function loadTexture() {
 
 loadTexture(opts.image);
 
-;(function update() {
+; (function update() {
   requestAnimationFrame(update);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  if ( cloth ) { cloth.update(0.016) }
+  if (cloth) { cloth.update(0.016) }
   renderer.render(stage);
 })(0)
 
 /*////////////////////////////////////////*/
 
 class Point {
-  constructor (x, y) {
+  constructor(x, y) {
     this.x = x
     this.y = y
     this.px = x
@@ -123,7 +160,7 @@ class Point {
     this.constraints = []
   }
 
-  update (delta) {
+  update(delta) {
     if (this.pinX && this.pinY) return this
 
     this.addForce(0, opts.gravity)
@@ -158,12 +195,12 @@ class Point {
     return this
   }
 
-  draw () {
+  draw() {
     let i = this.constraints.length
     while (i--) this.constraints[i].draw()
   }
 
-  resolve () {
+  resolve() {
     if (this.pinX && this.pinY) {
       this.x = this.pinX
       this.y = this.pinY
@@ -173,25 +210,25 @@ class Point {
     this.constraints.forEach((constraint) => constraint.resolve())
   }
 
-  attach (point) {
+  attach(point) {
     this.constraints.push(new Constraint(this, point))
   }
 
-  free (constraint) {
+  free(constraint) {
     this.constraints.splice(this.constraints.indexOf(constraint), 1)
   }
 
-  addForce (x, y) {
+  addForce(x, y) {
     this.vx += x
     this.vy += y
   }
 
-  pin (pinx, piny) {
+  pin(pinx, piny) {
     this.pinX = pinx
     this.pinY = piny
   }
-  
-  unpin(){
+
+  unpin() {
     this.pinX = null;
     this.pinY = null;
   }
@@ -200,13 +237,13 @@ class Point {
 /*////////////////////////////////////////*/
 
 class Constraint {
-  constructor (p1, p2, length) {
+  constructor(p1, p2, length) {
     this.p1 = p1
     this.p2 = p2
     this.length = length || spacingX
   }
 
-  resolve () {
+  resolve() {
     let dx = this.p1.x - this.p2.x
     let dy = this.p1.y - this.p2.y
     let dist = Math.sqrt(dx * dx + dy * dy)
@@ -230,7 +267,7 @@ class Constraint {
     return this
   }
 
-  draw () {
+  draw() {
     ctx.moveTo(this.p1.x, this.p1.y)
     ctx.lineTo(this.p2.x, this.p2.y)
   }
@@ -241,7 +278,7 @@ class Constraint {
 let count = 0;
 
 class Cloth {
-  constructor (clothX, clothY, free) {
+  constructor(clothX, clothY, free) {
     this.points = []
 
     let startX = canvas.width / 2 - clothX * spacingX / 2;
@@ -250,8 +287,8 @@ class Cloth {
     for (let y = 0; y <= clothY; y++) {
       for (let x = 0; x <= clothX; x++) {
         let point = new Point(
-          startX + x * spacingX - (spacingX * Math.sin(y) ), 
-          y * spacingY + startY + ( y !== 0 ? 5 * Math.cos(x) : 0 )
+          startX + x * spacingX - (spacingX * Math.sin(y)),
+          y * spacingY + startY + (y !== 0 ? 5 * Math.cos(x) : 0)
         )
         !free && y === 0 && point.pin(point.x, point.y)
         x !== 0 && point.attach(this.points[this.points.length - 1])
@@ -260,10 +297,10 @@ class Cloth {
         this.points.push(point)
       }
     }
-    
+
   }
 
-  update (delta) {
+  update(delta) {
     let i = accuracy
 
     while (i--) {
@@ -274,18 +311,18 @@ class Cloth {
 
     ctx.beginPath();
 
-    this.points.forEach((point,i) => {
+    this.points.forEach((point, i) => {
       point.update(delta * delta)
-        
-      if ( opts.renderCloth ) { point.draw(); }
-      
-      if ( mesh ) {
+
+      if (opts.renderCloth) { point.draw(); }
+
+      if (mesh) {
         i *= 2;
         mesh.vertices[i] = point.x;
-        mesh.vertices[i+1] = point.y;
+        mesh.vertices[i + 1] = point.y;
       }
     });
-    
+
     ctx.stroke()
   }
 }
