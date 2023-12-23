@@ -1,107 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Potterscore</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Potterscore</title>
 
-    <link rel="preload" href="hourglass-frame.png" as="image">
-    <link rel="preload" href="Texturina-Italic-VariableFont_opsz,wght.ttf" as="font" type="application/font-sfnt" crossorigin>
-    <link rel="preload" href="gsap-core.js" as="script" crossorigin>
-    <link rel="preload" href="gsap-css-plugin.js" as="script" crossorigin>
-    <link rel="stylesheet" href="style.css">
+  <link rel="preload" href="hourglass-frame.png" as="image">
+  <link rel="preload" href="Texturina-Italic-VariableFont_opsz,wght.ttf" as="font" type="application/font-sfnt" crossorigin>
+  <link rel="preload" href="gsap-core.js" as="script" crossorigin>
+  <link rel="preload" href="gsap-css-plugin.js" as="script" crossorigin>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <golden-snitch class="hidden js-mode-view-scores"></golden-snitch>
+  <golden-snitch class="hidden js-mode-view-scores"></golden-snitch>
 
-    <div class="modes js-hide-after-selecting-mode">
-        <p class="fancy h1">Potterscore</p>
-        <div>
-            <button class="mode-button" onclick="selectMode('enter-scores')">Enter scores</button>
-            <button class="mode-button" onclick="selectMode('view-scores')">View scores</button>
+  <div class="modes js-hide-after-selecting-mode">
+    <p class="fancy h1">Potterscore</p>
+    <div>
+      <button class="mode-button" onclick="selectMode('enter-scores')">Enter scores</button>
+      <button class="mode-button" onclick="selectMode('view-scores')">View scores</button>
+    </div>
+    <turbo-frame id="instructions" src="instructions.html"><p>Instructions loading...</p></turbo-frame>
+  </div>
+
+  <main class="hidden js-mode-enter-scores">
+    <p class="fancy h1">Potterscore</p>
+    <div class="houses">
+      <div class="house">
+        <label class="entry-label" for="slytherin-entry">Slytherin:</label>
+        <input type="number" data-bind-value="slytherin" id="slytherin-entry">
+        <button onclick="incrementScore('slytherin', 5)">+5</button>
+        <button onclick="incrementScore('slytherin', 10)">+10</button>
+        <button onclick="incrementScore('slytherin', 15)">+15</button>
+        <button onclick="incrementScore('slytherin')">+ (choose)</button>
+      </div>
+      <div class="house">
+        <label class="entry-label" for="ravenclaw-entry">Ravenclaw:</label>
+        <input type="number" data-bind-value="ravenclaw" id="ravenclaw-entry">
+        <button onclick="incrementScore('ravenclaw', 5)">+5</button>
+        <button onclick="incrementScore('ravenclaw', 10)">+10</button>
+        <button onclick="incrementScore('ravenclaw', 15)">+15</button>
+        <button onclick="incrementScore('ravenclaw')">+ (choose)</button>
+      </div>
+      <div class="house">
+        <label class="entry-label" for="gryffindor-entry">Gryffindor:</label>
+        <input type="number" data-bind-value="gryffindor" id="gryffindor-entry">
+        <button onclick="incrementScore('gryffindor', 5)">+5</button>
+        <button onclick="incrementScore('gryffindor', 10)">+10</button>
+        <button onclick="incrementScore('gryffindor', 15)">+15</button>
+        <button onclick="incrementScore('gryffindor')">+ (choose)</button>
+      </div>
+      <div class="house">
+        <label class="entry-label" for="hufflepuff-entry">Hufflepuff:</label>
+        <input type="number" data-bind-value="hufflepuff" id="hufflepuff-entry">
+        <button onclick="incrementScore('hufflepuff', 5)">+5</button>
+        <button onclick="incrementScore('hufflepuff', 10)">+10</button>
+        <button onclick="incrementScore('hufflepuff', 15)">+15</button>
+        <button onclick="incrementScore('hufflepuff')">+ (choose)</button>
+      </div>
+    </div>
+  </main>
+
+  <main class="hidden js-mode-view-scores">
+    <div class="fixed-full-screen">
+      <div class="hourglass-fitted">
+        <div class="gem-bars">
+          <img src="gems-slytherin.png" alt="" class="gem-bar" data-bind-bar-height="slytherin">
+          <img src="gems-ravenclaw.png" alt="" class="gem-bar" data-bind-bar-height="ravenclaw">
+          <img src="gems-gryffindor.png" alt="" class="gem-bar" data-bind-bar-height="gryffindor">
+          <img src="gems-hufflepuff.png" alt="" class="gem-bar" data-bind-bar-height="hufflepuff">
         </div>
-        <turbo-frame id="instructions" src="instructions.html"><p>Instructions loading...</p></turbo-frame>
+      </div>
     </div>
 
-    <main class="hidden js-mode-enter-scores">
-        <p class="fancy h1">Potterscore</p>
-        <div class="houses">
-            <div class="house">
-                <label class="entry-label" for="slytherin-entry">Slytherin:</label>
-                <input type="number" data-bind-value="slytherin" id="slytherin-entry">
-                <button onclick="incrementScore('slytherin', 5)">+5</button>
-                <button onclick="incrementScore('slytherin', 10)">+10</button>
-                <button onclick="incrementScore('slytherin', 15)">+15</button>
-                <button onclick="incrementScore('slytherin')">+ (choose)</button>
-            </div>
-            <div class="house">
-                <label class="entry-label" for="ravenclaw-entry">Ravenclaw:</label>
-                <input type="number" data-bind-value="ravenclaw" id="ravenclaw-entry">
-                <button onclick="incrementScore('ravenclaw', 5)">+5</button>
-                <button onclick="incrementScore('ravenclaw', 10)">+10</button>
-                <button onclick="incrementScore('ravenclaw', 15)">+15</button>
-                <button onclick="incrementScore('ravenclaw')">+ (choose)</button>
-            </div>
-            <div class="house">
-                <label class="entry-label" for="gryffindor-entry">Gryffindor:</label>
-                <input type="number" data-bind-value="gryffindor" id="gryffindor-entry">
-                <button onclick="incrementScore('gryffindor', 5)">+5</button>
-                <button onclick="incrementScore('gryffindor', 10)">+10</button>
-                <button onclick="incrementScore('gryffindor', 15)">+15</button>
-                <button onclick="incrementScore('gryffindor')">+ (choose)</button>
-            </div>
-            <div class="house">
-                <label class="entry-label" for="hufflepuff-entry">Hufflepuff:</label>
-                <input type="number" data-bind-value="hufflepuff" id="hufflepuff-entry">
-                <button onclick="incrementScore('hufflepuff', 5)">+5</button>
-                <button onclick="incrementScore('hufflepuff', 10)">+10</button>
-                <button onclick="incrementScore('hufflepuff', 15)">+15</button>
-                <button onclick="incrementScore('hufflepuff')">+ (choose)</button>
-            </div>
+    <div class="hourglass-frame fixed-full-screen"></div>
+
+    <div class="fixed-full-screen">
+      <div class="hourglass-fitted">
+        <div class="score-frame">
+          <span class="fancy fancy-number" data-bind-inner-text="slytherin">0</span>
+          <span class="fancy fancy-number" data-bind-inner-text="ravenclaw">0</span>
+          <span class="fancy fancy-number" data-bind-inner-text="gryffindor">0</span>
+          <span class="fancy fancy-number" data-bind-inner-text="hufflepuff">0</span>
         </div>
-    </main>
+      </div>
+    </div>
 
-    <main class="hidden js-mode-view-scores">
-        <div class="fixed-full-screen">
-            <div class="hourglass-fitted">
-                <div class="gem-bars">
-                    <img src="gems-slytherin.png" alt="" class="gem-bar" data-bind-bar-height="slytherin">
-                    <img src="gems-ravenclaw.png" alt="" class="gem-bar" data-bind-bar-height="ravenclaw">
-                    <img src="gems-gryffindor.png" alt="" class="gem-bar" data-bind-bar-height="gryffindor">
-                    <img src="gems-hufflepuff.png" alt="" class="gem-bar" data-bind-bar-height="hufflepuff">
-                </div>
-            </div>
-        </div>
+    <div class="fixed-full-screen">
+      <div class="banners-fitted">
+        <img src="banners-hogwarts.png" alt="" class="banner" data-bind-winning-banner="hogwarts">
+        <img src="banners-slytherin.png" alt="" class="banner transparent" data-bind-winning-banner="slytherin">
+        <img src="banners-ravenclaw.png" alt="" class="banner transparent" data-bind-winning-banner="ravenclaw">
+        <img src="banners-gryffindor.png" alt="" class="banner transparent" data-bind-winning-banner="gryffindor">
+        <img src="banners-hufflepuff.png" alt="" class="banner transparent" data-bind-winning-banner="hufflepuff">
+      </div>
+    </div>
+  </main>
 
-        <div class="hourglass-frame fixed-full-screen"></div>
-
-        <div class="fixed-full-screen">
-            <div class="hourglass-fitted">
-                <div class="score-frame">
-                    <span class="fancy fancy-number" data-bind-inner-text="slytherin">0</span>
-                    <span class="fancy fancy-number" data-bind-inner-text="ravenclaw">0</span>
-                    <span class="fancy fancy-number" data-bind-inner-text="gryffindor">0</span>
-                    <span class="fancy fancy-number" data-bind-inner-text="hufflepuff">0</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="fixed-full-screen">
-            <div class="banners-fitted">
-                <img src="banners-hogwarts.png" alt="" class="banner" data-bind-winning-banner="hogwarts">
-                <img src="banners-slytherin.png" alt="" class="banner transparent" data-bind-winning-banner="slytherin">
-                <img src="banners-ravenclaw.png" alt="" class="banner transparent" data-bind-winning-banner="ravenclaw">
-                <img src="banners-gryffindor.png" alt="" class="banner transparent" data-bind-winning-banner="gryffindor">
-                <img src="banners-hufflepuff.png" alt="" class="banner transparent" data-bind-winning-banner="hufflepuff">
-            </div>
-        </div>
-    </main>
-
-    <script type="module">
-        import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';
-    </script>
-    <script src="script.js"></script>
-    <script src="golden-snitch.js" type="module"></script>
+  <script type="module">
+    import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';
+  </script>
+  <script src="script.js"></script>
+  <script src="golden-snitch.js" type="module"></script>
 </body>
 </html>
