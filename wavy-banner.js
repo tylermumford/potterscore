@@ -4,6 +4,8 @@
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 // Modified by tylermumford
+// This is messy because it was originally written to just create one cloth on a page.
+// This was fine when it was a Pen on CodePen, but it made it hard to reuse.
 
 class WavyBanner extends HTMLElement {
   constructor() {
@@ -21,8 +23,8 @@ class WavyBanner extends HTMLElement {
       gravity: 200,
       friction: 0.99,
       bounce: 0.3,
-      pointsX: 20,
-      pointsY: 22,
+      pointsX: 40,
+      pointsY: 44,
       renderCloth: true,
       pinCorners: true,
     };
@@ -37,7 +39,13 @@ class WavyBanner extends HTMLElement {
   get height() { return this.attributes.height.value }
 
   createElements(params) {
+    // This canvas holds the grid of lines
+    // (if opts.renderCloth is set to true)
     this.canvas = document.createElement('canvas')
+
+    // I'm not sure if this canvas is needed at all.
+    // this.canvas.style.display = 'none'
+
     this.ctx = this.canvas.getContext('2d')
     this.appendChild(this.canvas)
     this.ctx.strokeStyle = '#555'
@@ -66,8 +74,8 @@ class WavyBanner extends HTMLElement {
       if (this.mesh) { this.stage.removeChild(this.mesh); }
   
       this.mesh = new PIXI.mesh.Plane(texture, this.opts.pointsX, this.opts.pointsY);
-      this.mesh.width = this.width;
-      this.mesh.height = this.height;
+      this.mesh.width = this.width
+      // this.mesh.height = texture.height
   
       this.spacingX = this.mesh.width / (this.opts.pointsX - 1);
       this.spacingY = this.mesh.height / (this.opts.pointsY - 1);
@@ -95,100 +103,6 @@ class WavyBanner extends HTMLElement {
 }
 
 customElements.define('wavy-banner', WavyBanner)
-
-// All this dead code should be removed
-// when wavy-banner is fully self-contained
-
-// let mesh;
-// let cloth;
-// let spacingX = 5;
-// let spacingY = 5;
-// let accuracy = 1;
-
-// let opts = {
-//   image: 'http://localhost:8080/banner-single-ravenclaw.png',
-//   gravity: 200,
-//   friction: 0.99,
-//   bounce: 0.3,
-//   pointsX: 20,
-//   pointsY: 22,
-//   renderCloth: true,
-//   pinCorners: true,
-// };
-
-
-// let gui = new dat.GUI();
-// // gui.closed = window.innerWidth < 600;
-// gui.closed = true;
-// let renderCloth = gui.add(opts, 'renderCloth');
-
-// let gravity = gui.add(opts, 'gravity', 0, 1000).step(20);
-// let friction = gui.add(opts, 'friction', 0.5, 1).step(0.005);
-// let bounce = gui.add(opts, 'bounce', 0, 2).step(0.1);
-
-
-// let pin = gui.add(opts, 'pinCorners');
-// pin.onChange(loadTexture);
-
-// let canvas = document.createElement('canvas');
-// let ctx = canvas.getContext('2d');
-// document.body.appendChild(canvas);
-
-// ctx.strokeStyle = '#555';
-
-/*////////////////////////////////////////*/
-
-// let stage = new PIXI.Container();
-// let renderer = PIXI.autoDetectRenderer(window.innerWidth, window.innerHeight, { transparent: true });
-
-// document.body.insertBefore(renderer.view, canvas);
-// renderer.render(stage);
-
-// canvas.width = renderer.width;
-// canvas.height = renderer.height;
-
-
-/*////////////////////////////////////////*/
-
-// function loadTexture() {
-
-//   console.log('loading texture', opts.image);
-
-//   document.body.className = 'loading';
-
-//   let texture = new PIXI.Texture.fromImage(opts.image);
-//   if (!texture.requiresUpdate) { texture.update(); }
-
-//   texture.on('error', function () { console.error('AGH!'); });
-
-//   texture.on('update', function () {
-//     document.body.className = '';
-
-//     console.log('texture loaded');
-
-//     if (mesh) { stage.removeChild(mesh); }
-
-//     mesh = new PIXI.mesh.Plane(this, opts.pointsX, opts.pointsY);
-//     mesh.width = this.width;
-//     mesh.height = this.height;
-
-//     spacingX = mesh.width / (opts.pointsX - 1);
-//     spacingY = mesh.height / (opts.pointsY - 1);
-
-//     cloth = new Cloth(opts.pointsX - 1, opts.pointsY - 1, !opts.pinCorners);
-
-//     stage.addChild(mesh);
-//   });
-// }
-
-// loadTexture(opts.image);
-
-// ; (function update() {
-//   requestAnimationFrame(update);
-//   ctx.clearRect(0, 0, canvas.width, canvas.height);
-//   if (cloth) { cloth.update(0.016) }
-//   renderer.render(stage);
-// })(0)
 
 /*////////////////////////////////////////*/
 
