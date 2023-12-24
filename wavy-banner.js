@@ -253,7 +253,7 @@ class Cloth {
     this.mesh = mesh;
 
     let startX = canvas.width / 2 - clothX * spacingX / 2;
-    let startY = canvas.height * 0.2;
+    let startY = 1;
 
     for (let y = 0; y <= clothY; y++) {
       for (let x = 0; x <= clothX; x++) {
