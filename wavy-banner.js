@@ -22,9 +22,9 @@ class WavyBanner extends HTMLElement {
       image: 'http://localhost:8080/banner-single-ravenclaw.png',
       gravity: 200,
       friction: 0.99,
-      bounce: 0.3,
-      pointsX: 40,
-      pointsY: 44,
+      bounce: 0.01,
+      pointsX: 20,
+      pointsY: 22,
       renderCloth: true,
       pinCorners: true,
     };
@@ -252,7 +252,7 @@ class Cloth {
     this.opts = opts;
     this.mesh = mesh;
 
-    let startX = canvas.width / 2 - clothX * spacingX / 2;
+    let startX = 0;
     let startY = 1;
 
     for (let y = 0; y <= clothY; y++) {
