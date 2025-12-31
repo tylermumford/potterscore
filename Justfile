@@ -1,2 +1,2 @@
 serve:
-	ruby -run -e httpd
+	npx vite
