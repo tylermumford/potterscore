@@ -12,3 +12,14 @@ test("fancy background", async ({ page }) => {
 
   await expect(page.getByRole("img", { name: "Background" })).toBeVisible();
 });
+
+test("score entry page", async ({ page }) => {
+  await page.goto("/");
+
+  await page.getByRole("button", { name: "Enter scores" }).click();
+
+  const buttons = page.getByRole("button");
+  const inputs = page.getByRole("spinbutton");
+  await expect(buttons).toHaveCount(16);
+  await expect(inputs).toHaveCount(4);
+});
