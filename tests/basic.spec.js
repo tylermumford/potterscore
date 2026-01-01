@@ -22,4 +22,18 @@ test("score entry page", async ({ page }) => {
   const inputs = page.getByRole("spinbutton");
   await expect(buttons).toHaveCount(16);
   await expect(inputs).toHaveCount(4);
+
+  await expect(page).toHaveURL("/score-entry.html");
+});
+
+test("back button goes back", async ({ page }) => {
+  await page.goto("/");
+
+  await page.getByRole("button", { name: "Enter scores" }).click();
+  await expect(page).toHaveURL("/score-entry.html");
+
+  await page.goBack();
+  await expect(page).toHaveURL("/");
+  await expect(page).toHaveTitle("Potterscore");
+  await expect(page.getByRole("button")).toHaveCount(2);
 });
