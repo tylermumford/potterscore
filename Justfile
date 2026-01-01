@@ -1,2 +1,7 @@
+# Run a dev server
 serve:
-	npx vite
+    npm run start
+
+# Run tests
+test:
+    npm run test

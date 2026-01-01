@@ -1,0 +1,24 @@
+{
+  "name": "potterscore",
+  "version": "1.0.0",
+  "description": "A tool for tracking House Points.",
+  "scripts": {
+    "start": "npx vite",
+    "test": "npx playwright test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tylermumford/potterscore.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tylermumford/potterscore/issues"
+  },
+  "homepage": "https://github.com/tylermumford/potterscore#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "@types/node": "^25.0.3"
+  }
+}
