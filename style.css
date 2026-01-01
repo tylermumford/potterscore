@@ -1,151 +1,152 @@
 :root {
-  --page-bg-color: #691813;
+    --page-bg-color: #691813;
 }
 
 @font-face {
-  font-family: Texturina;
-  src: url('Texturina-Italic-VariableFont_opsz\,wght.ttf');
-  fallback: Garamond, serif;
+    font-family: Texturina;
+    src: url("Texturina-Italic-VariableFont_opsz\,wght.ttf");
+    fallback: Garamond, serif;
 }
 
 /* ELEMENTS */
 
 body {
-  background-color: var(--page-bg-color);
-  color: white;
-  font-family: sans-serif;
+    background-color: var(--page-bg-color);
+    color: white;
+    font-family: sans-serif;
 }
 
 /* CLASSES */
 
 .mode-button {
-  padding: 1rem;
-  border-radius: 1rem;
+    padding: 1rem;
+    border-radius: 1rem;
 }
 
 .houses {
-  font-size: 130%;
+    font-size: 130%;
 }
 
-.houses input, .houses button {
-  font-size: inherit;
+.houses input,
+.houses button {
+    font-size: inherit;
 }
 
 .entry-label {
-  display: inline-block;
-  min-width: 20ch;
+    display: inline-block;
+    min-width: 20ch;
 }
 
 .gem-bars {
-  align-items: flex-end;
-  box-sizing: border-box;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  top: 21.6%;
-  position: absolute;
-  bottom: 22.4%;
-  padding-right: 13.2%;
-  padding-left: 6.2%;
+    align-items: flex-end;
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    top: 21.6%;
+    position: absolute;
+    bottom: 22.4%;
+    padding-right: 13.2%;
+    padding-left: 6.2%;
 }
 
 .gem-bar {
-  transition: transform 0.6s ease-out;
-  width: 18%;
+    transition: transform 0.6s ease-out;
+    width: 18%;
 }
 
 .hourglass-frame {
-  background-image: url('hourglass-frame.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+    background-image: url("/images/hourglass-frame.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 @media (min-aspect-ratio: 16/9) {
-  .hourglass-frame {
-    background-size: contain;
-  }
+    .hourglass-frame {
+        background-size: contain;
+    }
 }
 
 .fixed-full-screen {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 
 .hourglass-fitted {
-  /* This class creates a box around the hourglasses and the score frame. */
-  height: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  width: calc(100vh / 1.2);
-  /* Create a positioning context */
-  position: relative;
+    /* This class creates a box around the hourglasses and the score frame. */
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    width: calc(100vh / 1.2);
+    /* Create a positioning context */
+    position: relative;
 }
 
 .banners-fitted {
-  /* This class creates a box around the left and right banners. */
-  --width: calc(100vh / 0.575);
+    /* This class creates a box around the left and right banners. */
+    --width: calc(100vh / 0.575);
 
-  height: 45vh;
-  left: 50%;
-  margin-left: calc(0vh - var(--width) / 2);
-  position: absolute;
-  top: 14.3%;
-  width: var(--width);
+    height: 45vh;
+    left: 50%;
+    margin-left: calc(0vh - var(--width) / 2);
+    position: absolute;
+    top: 14.3%;
+    width: var(--width);
 }
 
 .banner {
-  width: 100%;
-  position: absolute;
-  transition: opacity 0.8s ease-in;
+    width: 100%;
+    position: absolute;
+    transition: opacity 0.8s ease-in;
 }
 
 .score-frame {
-  align-items: center;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
+    align-items: center;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
 
-  /* These properties are for lining up the frame on the image. */
-  bottom: 5.8%;
+    /* These properties are for lining up the frame on the image. */
+    bottom: 5.8%;
 
-  /* lines up numbers below asymmetrical hourglasses */
-  padding-right: 9%;
+    /* lines up numbers below asymmetrical hourglasses */
+    padding-right: 9%;
 
-  /* accounts for font */
-  padding-top: 1.1%;
+    /* accounts for font */
+    padding-top: 1.1%;
 
-  position: absolute;
-  top: 81%;
-  z-index: 300;
+    position: absolute;
+    top: 81%;
+    z-index: 300;
 }
 
 .fancy-number {
-  color: darkslategray;
-  font-size: 6vh;
-  line-height: 1;
-  min-width: 3ch;
-  text-align: center;
+    color: darkslategray;
+    font-size: 6vh;
+    line-height: 1;
+    min-width: 3ch;
+    text-align: center;
 }
 
 .fancy {
-  font-family: Texturina, Garamond, serif;
+    font-family: Texturina, Garamond, serif;
 }
 
 /* UTILITIES */
 
 .hidden {
-  display: none !important;
+    display: none !important;
 }
 
 .transparent {
-  opacity: 0 !important;
+    opacity: 0 !important;
 }
 
 .h1 {
-  font-size: 230% !important;
+    font-size: 230% !important;
 }
