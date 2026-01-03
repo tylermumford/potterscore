@@ -16,6 +16,10 @@ body {
     font-family: sans-serif;
 }
 
+h1 {
+    font-size: 230% !important;
+}
+
 /* CLASSES */
 
 .mode-button {
@@ -56,7 +60,7 @@ body {
 }
 
 .hourglass-frame {
-    background-image: url("/images/hourglass-frame.png");
+    background-image: url("/images/hourglass-frame-min.png");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -126,6 +130,7 @@ body {
 }
 
 .fancy-number {
+    font-family: Texturina, Garamond, serif;
     color: darkslategray;
     font-size: 6vh;
     line-height: 1;
@@ -133,8 +138,20 @@ body {
     text-align: center;
 }
 
-.fancy {
+.fancy-h1 {
     font-family: Texturina, Garamond, serif;
+    font-size: 230%;
+}
+
+.boldy {
+    color: white;
+    padding: 1rem;
+    border: solid;
+    border-radius: 8px;
+}
+
+.reading-width {
+    max-width: 36rem;
 }
 
 /* UTILITIES */
@@ -147,6 +164,6 @@ body {
     opacity: 0 !important;
 }
 
-.h1 {
-    font-size: 230% !important;
+.mb4 {
+    margin-bottom: 2rem !important;
 }

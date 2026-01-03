@@ -7,7 +7,7 @@
         <title>Potterscore</title>
 
         <link rel="stylesheet" href="style.css" />
-        <link rel="preload" href="/images/hourglass-frame.png" as="image" />
+        <link rel="preload" href="/images/hourglass-frame-min.png" as="image" />
         <link
             rel="preload"
             href="Texturina-Italic-VariableFont_opsz,wght.ttf"
@@ -16,16 +16,47 @@
         />
     </head>
     <body>
-        <p class="fancy h1">Potterscore</p>
-        <div>
-            <a href="/party-display.html" style="color: white"
-                >Party display page</a
-            >
-            <a href="/score-entry.html" style="color: white"
-                >Score entry page</a
-            >
+        <h1 class="fancy-h1">Potterscore</h1>
+
+        <div class="mb4">
+            <a href="/party-display.html" class="boldy">Party display page</a>
+            <a href="/score-entry.html" class="boldy">Score entry page</a>
         </div>
-        <script type="module" src="instructions.js"></script>
-        <app-instructions>Instructions loading...</app-instructions>
+
+        <h2>Instructions:</h2>
+
+        <ol class="reading-width">
+            <li>
+                Open two browser windows, and navigate to this page in both of
+                them. One device, one browser, two windows.
+            </li>
+            <li>
+                Choose "Enter scores" in one window, and choose "View scores" in
+                the other window.
+            </li>
+            <li>
+                The scores will be linked in all open windows. The "View scores"
+                window can be displayed on a TV, for example.
+            </li>
+        </ol>
+
+        <h2>Notes:</h2>
+
+        <ul class="reading-width">
+            <li>
+                The "View scores" window currently only looks right when the
+                browser window has a 16x9 aspect ratio. Working on it. :)
+            </li>
+            <li>
+                Scores are saved, even if the computer restarts. But they're not
+                online, so different devices and different browsers won't have
+                linked scores.
+            </li>
+            <li>
+                To change a window from "View scores" to "Enter scores" or vice
+                versa, reload the page.
+            </li>
+            <li>You may see a surprise every few minutes.</li>
+        </ul>
     </body>
 </html>
