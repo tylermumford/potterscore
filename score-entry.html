@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Potterscore</title>
+
+        <link rel="stylesheet" href="style.css" />
+        <link rel="preload" href="/images/hourglass-frame.png" as="image" />
+        <link
+            rel="preload"
+            href="Texturina-Italic-VariableFont_opsz,wght.ttf"
+            as="font"
+            crossorigin
+        />
+        <link rel="preload" href="gsap-core.js" as="script" crossorigin />
+        <link rel="preload" href="gsap-css-plugin.js" as="script" crossorigin />
+    </head>
+    <body>
+        <main class="js-mode-enter-scores">
+            <p class="fancy h1">Potterscore</p>
+            <div class="houses">
+                <div class="house">
+                    <label class="entry-label" for="slytherin-entry"
+                        >Slytherin:</label
+                    >
+                    <input
+                        type="number"
+                        data-bind-value="slytherin"
+                        id="slytherin-entry"
+                    />
+                    <button onclick="incrementScore('slytherin', 5)">+5</button>
+                    <button onclick="incrementScore('slytherin', 10)">
+                        +10
+                    </button>
+                    <button onclick="incrementScore('slytherin', 15)">
+                        +15
+                    </button>
+                    <button onclick="incrementScore('slytherin')">
+                        + (choose)
+                    </button>
+                </div>
+                <div class="house">
+                    <label class="entry-label" for="ravenclaw-entry"
+                        >Ravenclaw:</label
+                    >
+                    <input
+                        type="number"
+                        data-bind-value="ravenclaw"
+                        id="ravenclaw-entry"
+                    />
+                    <button onclick="incrementScore('ravenclaw', 5)">+5</button>
+                    <button onclick="incrementScore('ravenclaw', 10)">
+                        +10
+                    </button>
+                    <button onclick="incrementScore('ravenclaw', 15)">
+                        +15
+                    </button>
+                    <button onclick="incrementScore('ravenclaw')">
+                        + (choose)
+                    </button>
+                </div>
+                <div class="house">
+                    <label class="entry-label" for="gryffindor-entry"
+                        >Gryffindor:</label
+                    >
+                    <input
+                        type="number"
+                        data-bind-value="gryffindor"
+                        id="gryffindor-entry"
+                    />
+                    <button onclick="incrementScore('gryffindor', 5)">
+                        +5
+                    </button>
+                    <button onclick="incrementScore('gryffindor', 10)">
+                        +10
+                    </button>
+                    <button onclick="incrementScore('gryffindor', 15)">
+                        +15
+                    </button>
+                    <button onclick="incrementScore('gryffindor')">
+                        + (choose)
+                    </button>
+                </div>
+                <div class="house">
+                    <label class="entry-label" for="hufflepuff-entry"
+                        >Hufflepuff:</label
+                    >
+                    <input
+                        type="number"
+                        data-bind-value="hufflepuff"
+                        id="hufflepuff-entry"
+                    />
+                    <button onclick="incrementScore('hufflepuff', 5)">
+                        +5
+                    </button>
+                    <button onclick="incrementScore('hufflepuff', 10)">
+                        +10
+                    </button>
+                    <button onclick="incrementScore('hufflepuff', 15)">
+                        +15
+                    </button>
+                    <button onclick="incrementScore('hufflepuff')">
+                        + (choose)
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <script src="script.js"></script>
+    </body>
+</html>

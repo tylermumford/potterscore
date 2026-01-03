@@ -8,7 +8,7 @@ test("basic page load", async ({ page }) => {
 test("fancy background", async ({ page }) => {
   await page.goto("/");
 
-  await page.getByRole("button", { name: "View scores" }).click();
+  await page.getByRole("link", { name: "Party display" }).click();
 
   await expect(page.getByRole("img", { name: "Background" })).toBeVisible();
 });
@@ -16,7 +16,7 @@ test("fancy background", async ({ page }) => {
 test("score entry page", async ({ page }) => {
   await page.goto("/");
 
-  await page.getByRole("button", { name: "Enter scores" }).click();
+  await page.getByRole("link", { name: "Score entry" }).click();
 
   const buttons = page.getByRole("button");
   const inputs = page.getByRole("spinbutton");
@@ -29,11 +29,11 @@ test("score entry page", async ({ page }) => {
 test("back button goes back", async ({ page }) => {
   await page.goto("/");
 
-  await page.getByRole("button", { name: "Enter scores" }).click();
+  await page.getByRole("link", { name: "Score entry" }).click();
   await expect(page).toHaveURL("/score-entry.html");
 
   await page.goBack();
   await expect(page).toHaveURL("/");
   await expect(page).toHaveTitle("Potterscore");
-  await expect(page.getByRole("button")).toHaveCount(2);
+  await expect(page.getByRole("link")).toHaveCount(2);
 });

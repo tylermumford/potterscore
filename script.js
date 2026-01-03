@@ -27,11 +27,11 @@ function selectMode(modeName) {
   });
 
   // Update the page URL
-  const urls = {
-    "enter-scores": "score-entry.html",
-    "view-scores": "party-display.html",
-  };
-  window.history.pushState(null, "", urls[modeName]);
+  // const urls = {
+  //   "enter-scores": "score-entry.html",
+  //   "view-scores": "party-display.html",
+  // };
+  // window.history.pushState(null, "", urls[modeName]);
 }
 
 /**
@@ -199,9 +199,9 @@ function initializeData() {
 function initializeEvents() {
   window.addEventListener("storage", handleStorageEvent);
 
-  window.addEventListener("popstate", () => {
-    document.location.reload();
-  });
+  // window.addEventListener("popstate", () => {
+  //   document.location.reload();
+  // });
 }
 
 /* INITIALIZATION CALLS */
